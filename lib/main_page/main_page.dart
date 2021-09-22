@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -62,6 +63,7 @@ class _MainPageState extends State<MainPage> {
                   },
                 ),
               ),
+              // TODO: create profile
               Container(
                 child: Row(
                   children: [
@@ -98,6 +100,99 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
+      body: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                shape: BoxShape.rectangle,
+                border: Border(
+                  right: BorderSide(
+                    width: 0.4,
+                    color: Colors.blueGrey,
+                  ),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: SfDateRangePicker(
+                      onSelectionChanged: _onSelectionChanged,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(48.0),
+                    child: Card(
+                      elevation: 4.0,
+                      child: TextButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.add,
+                          size: 18,
+                          color: Colors.greenAccent,
+                        ),
+                        label: const Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Write New',
+                              style: TextStyle(color: Colors.green),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Container(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Expanded(
+                              child: ListView.builder(
+                            itemCount: MediaQuery.of(context).size.height ~/ 64,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: const Card(
+                                  elevation: 4.0,
+                                  child: ListTile(
+                                    title: Text("Diary entry data"),
+                                  ),
+                                ),
+                              );
+                            },
+                          )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+        tooltip: 'Add',
+      ),
     );
+  }
+
+  void _onSelectionChanged(dateRangePickerSelectionChangedArgs) {
+    print("Date selected: ${dateRangePickerSelectionChangedArgs.value}");
   }
 }
